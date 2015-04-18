@@ -1,0 +1,3 @@
+[submodule "BuildConfig"]
+	path = BuildConfig
+	url = git@github.com:Frangwhuf/BuildConfig.git
