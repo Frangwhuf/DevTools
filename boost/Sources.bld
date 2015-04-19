@@ -1,0 +1,53 @@
+#define SKIP_AUTODISCOVER 1
+
+#if $[WINDOWS_PLATFORM]
+  #format straight
+  #output $[TOPDIR]/bin/installBoost$[SCRIPT_EXT]
+@echo Configuring Boost
+@pushd $[osfilename $[TOPDIR]/boost/boost]
+@call bootstrap.bat
+@echo Buliding Boost
+@$[osfilename $[TOPDIR]/boost/boost/b2.exe] --clean address-model=64
+@$[osfilename $[TOPDIR]/boost/boost/b2.exe] address-model=64 stage
+@echo Installing Boost
+@$[osfilename $[TOPDIR]/boost/boost/b2.exe] --prefix=$[osfilename $[TOPDIR]] --includedir=inc address-model=64 install
+@robocopy /S $[osfilename inc/boost-1_54] $[osfilename $[TOPDIR]/inc] /XD .svn
+@rmdir /S /Q inc
+@popd
+@echo Finished
+  #end $[TOPDIR]/bin/installBoost$[SCRIPT_EXT]
+  #format straight
+  #output $[TOPDIR]/bin/uninstallBoost$[SCRIPT_EXT]
+@echo Uninstalling Boost/STLport
+@pushd $[osfilename $[TOPDIR]/inc]
+@del /S /F /Q boost
+@rmdir /S /Q boost
+@cd $[osfilename $[TOPDIR]/lib]
+@del libboost*
+@popd
+@echo Finished.
+  #end $[TOPDIR]/bin/uninstallBoost$[SCRIPT_EXT]
+#else // $[WINDOWS_PLATFORM]
+  #define bits $[shell getconf LONG_BIT]
+  #print detected bits = $[bits]
+  #format straight
+  #output $[TOPDIR]/bin/installBoost$[SCRIPT_EXT]
+pushd $[TOPDIR]/boost/boost
+$[TOPDIR]/boost/boost/bootstrap.sh
+$[TOPDIR]/boost/boost/bjam --clean $[if $[eq $[bits],64],address-model=64]
+$[TOPDIR]/boost/boost/bjam $[if $[eq $[bits],64],address-model=64] stage
+$[TOPDIR]/boost/boost/bjam --prefix=$[TOPDIR] --includedir=$[TOPDIR]/inc $[if $[eq $[bits],64],address-model=64] install
+rm -rf $[TOPDIR]/boost/boost/bin.v2
+rm -rf $[TOPDIR]/boost/boost/stage
+popd
+  #end $[TOPDIR]/bin/installBoost$[SCRIPT_EXT]
+  #format straight
+  #output $[TOPDIR]/bin/uninstallBoost$[SCRIPT_EXT]
+pushd $[TOPDIR]/inc
+rm -rf boost
+cd $[TOPDIR]/lib
+rm -f libboost*
+popd
+  #end $[TOPDIR]/bin/uninstallBoost$[SCRIPT_EXT]
+  #print Warning, I don't know how to generate (un)install scripts for Boost/STLport on this system.
+#endif // $[WINDOWS_PLATFORM]

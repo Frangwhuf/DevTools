@@ -1,3 +1,6 @@
 [submodule "BuildConfig"]
 	path = BuildConfig
 	url = git@github.com:Frangwhuf/BuildConfig.git
+[submodule "boost/boost"]
+	path = boost/boost
+	url = git@github.com:boostorg/boost.git
