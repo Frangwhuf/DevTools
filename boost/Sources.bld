@@ -11,8 +11,9 @@
 @$[osfilename $[TOPDIR]/boost/boost/b2.exe] address-model=64 stage
 @echo Installing Boost
 @$[osfilename $[TOPDIR]/boost/boost/b2.exe] --prefix=$[osfilename $[TOPDIR]] --includedir=inc address-model=64 install
-@robocopy /S $[osfilename inc/boost-1_54] $[osfilename $[TOPDIR]/inc] /XD .svn
+@robocopy /S $[osfilename inc/boost-1_58] $[osfilename $[TOPDIR]/inc] /XD .svn
 @rmdir /S /Q inc
+@$[osfilename $[TOPDIR]/boost/boost/b2.exe] --clean address-model=64
 @popd
 @echo Finished
   #end $[TOPDIR]/bin/installBoost$[SCRIPT_EXT]

@@ -8,3 +8,6 @@ Redirect.bld
 /DevTools.vcxproj.filter
 /DevTools.vcxproj.user
 /*.opensdf
+/inc
+/lib
+/doc
