@@ -6,20 +6,17 @@
 @echo Configuring Boost
 @pushd $[osfilename $[TOPDIR]/boost/boost]
 @call bootstrap.bat
-@echo Buliding Boost
+@echo Buliding and installing Boost
 @$[osfilename $[TOPDIR]/boost/boost/b2.exe] --clean address-model=64
-@$[osfilename $[TOPDIR]/boost/boost/b2.exe] address-model=64 stage
-@echo Installing Boost
-@$[osfilename $[TOPDIR]/boost/boost/b2.exe] --prefix=$[osfilename $[TOPDIR]] --includedir=inc address-model=64 install
-@robocopy /S $[osfilename inc/boost-1_58] $[osfilename $[TOPDIR]/inc] /XD .svn
-@rmdir /S /Q inc
+@$[osfilename $[TOPDIR]/boost/boost/b2.exe] --prefix=$[osfilename $[TOPDIR]] --includedir=$[osfilename $[TOPDIR]/inc] --layout=tagged address-model=64 install
 @$[osfilename $[TOPDIR]/boost/boost/b2.exe] --clean address-model=64
+@rmdir /S /Q bin.v2
 @popd
 @echo Finished
   #end $[TOPDIR]/bin/installBoost$[SCRIPT_EXT]
   #format straight
   #output $[TOPDIR]/bin/uninstallBoost$[SCRIPT_EXT]
-@echo Uninstalling Boost/STLport
+@echo Uninstalling Boost
 @pushd $[osfilename $[TOPDIR]/inc]
 @del /S /F /Q boost
 @rmdir /S /Q boost
@@ -36,10 +33,9 @@
 pushd $[TOPDIR]/boost/boost
 $[TOPDIR]/boost/boost/bootstrap.sh
 $[TOPDIR]/boost/boost/bjam --clean $[if $[eq $[bits],64],address-model=64]
-$[TOPDIR]/boost/boost/bjam $[if $[eq $[bits],64],address-model=64] stage
 $[TOPDIR]/boost/boost/bjam --prefix=$[TOPDIR] --includedir=$[TOPDIR]/inc $[if $[eq $[bits],64],address-model=64] install
+$[TOPDIR]/boost/boost/bjam --clean $[if $[eq $[bits],64],address-model=64]
 rm -rf $[TOPDIR]/boost/boost/bin.v2
-rm -rf $[TOPDIR]/boost/boost/stage
 popd
   #end $[TOPDIR]/bin/installBoost$[SCRIPT_EXT]
   #format straight
