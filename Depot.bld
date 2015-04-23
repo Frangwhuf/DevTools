@@ -49,7 +49,7 @@
   #error "You must define BUILD_SCRIPTS and point it to a local copy of your build scripts."
 #endif
 
-#define EXTRA_BATCH_ENVIRONMENT BUILD_SCRIPTS=$[join +,$[osfilename $[TOPDIR]/BuildScripts]]
+#define EXTRA_BATCH_ENVIRONMENT BUILD_SCRIPTS=$[join +,$[osfilename $[BUILD_SCRIPTS]]]
 
 // Pull in the depot-level Config file.  This contains a lot of
 // configuration variables that the user might want to fine-tune.

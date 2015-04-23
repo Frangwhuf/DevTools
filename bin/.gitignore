@@ -1,6 +1,4 @@
-/releaseenv.bat
-/debug.bat
-/debugenv.bat
-/qa.bat
-/qaenv.bat
-/release.bat
+/*.bat
+/*.exe
+/*.manifest
+/*.ilk

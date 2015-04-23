@@ -11,6 +11,7 @@
 @$[osfilename $[TOPDIR]/boost/boost/b2.exe] --prefix=$[osfilename $[TOPDIR]] --includedir=$[osfilename $[TOPDIR]/inc] --layout=tagged address-model=64 install
 @$[osfilename $[TOPDIR]/boost/boost/b2.exe] --clean address-model=64
 @rmdir /S /Q bin.v2
+@rmdir /S /Q libs\config\checks\architecture\bin
 @popd
 @echo Finished
   #end $[TOPDIR]/bin/installBoost$[SCRIPT_EXT]
