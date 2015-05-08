@@ -9,6 +9,7 @@
 @echo Buliding and installing Boost
 @$[osfilename $[TOPDIR]/boost/boost/b2.exe] --clean address-model=64
 @$[osfilename $[TOPDIR]/boost/boost/b2.exe] --prefix=$[osfilename $[TOPDIR]] --includedir=$[osfilename $[TOPDIR]/inc] --layout=tagged address-model=64 install
+@copy $[osfilename $[TOPDIR]/boost/my_boost_config.hpp] $[osfilename $[TOPDIR]/inc/my_boost_config.hpp]
 @$[osfilename $[TOPDIR]/boost/boost/b2.exe] --clean address-model=64
 @rmdir /S /Q bin.v2
 @rmdir /S /Q libs\config\checks\architecture\bin
@@ -21,6 +22,7 @@
 @pushd $[osfilename $[TOPDIR]/inc]
 @del /S /F /Q boost
 @rmdir /S /Q boost
+@del /S /F /Q myboost_config.hpp
 @cd $[osfilename $[TOPDIR]/lib]
 @del libboost*
 @popd
